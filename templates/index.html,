@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Task Manager</title>
+</head>
+
+<body>
+
+    <h1>🚀 DevOps Task Manager</h1>
+
+    <p>My first Python + Flask + HTML application</p>
+
+    <h2>Learning Progress</h2>
+
+    <ul>
+        <li>🐧 Linux — Learning</li>
+        <li>🐍 Python — Completed</li>
+        <li>🌐 HTML — Learning</li>
+        <li>🗄️ Database — Coming Soon</li>
+        <li>Git — Coming Soon</li>
+        <li>GitHub — Coming Soon</li>
+        <li>Jenkins — Coming Soon</li>
+        <li>Docker — Coming Soon</li>
+        <li>Kubernetes — Coming Soon</li>
+        <li>Grafana — Coming Soon</li>
+    </ul>
+
+    <hr>
+
+    <p>Application Status: <strong>UP</strong></p>
+
+</body>
+</html>
