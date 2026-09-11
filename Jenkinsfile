@@ -3,9 +3,9 @@ pipeline {
     agent any
 
     environment {
-    PYTHON = 'C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python314\\python.exe'
-    DOCKER = 'C:\\Users\\user\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe'
- }
+        PYTHON = 'C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python314\\python.exe'
+        DOCKER = 'C:\\Users\\user\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe'
+    }
 
     stages {
 
@@ -20,11 +20,13 @@ pipeline {
                 bat '"%PYTHON%" --version'
             }
         }
+
         stage('Check Docker') {
-    steps {
-        bat '"%DOCKER%" --version'
-    }
-}
+            steps {
+                bat '"%DOCKER%" --version'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 bat '"%PYTHON%" -m pip install -r requirements.txt'
@@ -37,13 +39,14 @@ pipeline {
             }
         }
 
+        stage('Build Docker Image') {
+            steps {
+                bat '"%DOCKER%" build -t devops-task-app:1.0 .'
+            }
+        }
+
     }
 
-stage('Build Docker Image') {
-    steps {
-        bat '"%DOCKER%" build -t devops-task-app:1.0 .'
-    }
-}
     post {
 
         success {
