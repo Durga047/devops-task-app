@@ -39,6 +39,11 @@ pipeline {
 
     }
 
+stage('Build Docker Image') {
+    steps {
+        bat '"%DOCKER%" build -t devops-task-app:1.0 .'
+    }
+}
     post {
 
         success {
