@@ -3,8 +3,9 @@ pipeline {
     agent any
 
     environment {
-        PYTHON = 'C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python314\\python.exe'
-    }
+    PYTHON = 'C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python314\\python.exe'
+    DOCKER = 'C:\\Users\\user\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe'
+ }
 
     stages {
 
@@ -21,7 +22,7 @@ pipeline {
         }
         stage('Check Docker') {
     steps {
-        bat 'docker --version'
+        bat '"%DOCKER%" --version'
     }
 }
         stage('Install Dependencies') {
