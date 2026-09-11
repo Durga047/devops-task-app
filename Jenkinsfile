@@ -19,7 +19,11 @@ pipeline {
                 bat '"%PYTHON%" --version'
             }
         }
-
+        stage('Check Docker') {
+    steps {
+        bat 'docker --version'
+    }
+}
         stage('Install Dependencies') {
             steps {
                 bat '"%PYTHON%" -m pip install -r requirements.txt'
