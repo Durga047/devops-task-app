@@ -59,6 +59,8 @@ pipeline {
 
                 bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- set image deployment/devops-task-app devops-task-app=devops-task-app:%BUILD_NUMBER%'
 
+                bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- apply -f k8s/deployment.yaml'
+
                 bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- set resources deployment/devops-task-app -c devops-task-app --requests=cpu=100m,memory=128Mi --limits=cpu=500m,memory=512Mi'
 
                 bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- apply -f k8s/service.yaml'
