@@ -27,7 +27,12 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Check Minikube') {
+             steps {
+                  bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" status'
+          }
+        }        
+          stage('Install Dependencies') {
             steps {
                 bat '"%PYTHON%" -m pip install -r requirements.txt'
             }
