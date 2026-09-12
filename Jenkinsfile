@@ -49,6 +49,13 @@ pipeline {
                 bat '"%DOCKER%" build -t devops-task-app:1.0 .'
             }
         }
+stage('Deploy to Kubernetes') {
+    steps {
+        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- apply -f k8s/deployment.yaml'
+        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- apply -f k8s/service.yaml'
+        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- rollout status deployment/devops-task-app --timeout=120s'
+    }
+}
 
     }
 
