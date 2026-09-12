@@ -4,24 +4,41 @@ metadata:
   name: devops-task-app
 spec:
   replicas: 3
+
   selector:
     matchLabels:
       app: devops-task-app
+
   template:
     metadata:
       labels:
         app: devops-task-app
+
     spec:
       containers:
         - name: devops-task-app
           image: devops-task-app:1.0
           imagePullPolicy: Never
+
           ports:
             - containerPort: 5000
+
+          envFrom:
+            - configMapRef:
+                name: devops-task-app-config
+
+          env:
+            - name: APP_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: devops-task-app-secret
+                  key: APP_SECRET_KEY
+
           resources:
             requests:
               cpu: "100m"
               memory: "128Mi"
+
             limits:
               cpu: "500m"
               memory: "512Mi"
