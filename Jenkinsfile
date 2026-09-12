@@ -57,7 +57,20 @@ stage('Deploy to Kubernetes') {
         bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- rollout status deployment/devops-task-app --timeout=120s'
     }
 }
-
+stage('Verify Deployment') {
+    steps {
+        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- get deployment devops-task-app'
+        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- get pods'
+        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- get service devops-task-app'
+        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- get pods -o wide'
+        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- get deployment devops-task-app -o jsonpath="{.spec.template.spec.containers[0].image}"'
+    }
+}
+stage('Application Health Check') {
+     steps {
+        bat '''"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- exec deployment/devops-task-app -- python -c "import urllib.request; print(urllib.request.urlopen('http://127.0.0.1:5000/health').status)"'''
+    }
+}
     }
 
     post {
