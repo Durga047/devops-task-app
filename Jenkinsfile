@@ -2,7 +2,7 @@ pipeline {
 
     agent any
 
-    environment {
+ environment {
         PYTHON = 'C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python314\\python.exe'
         DOCKER = 'C:\\Users\\user\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe'
     }
@@ -26,12 +26,12 @@ pipeline {
                 bat '"%DOCKER%" --version'
             }
         }
-
         stage('Check Minikube') {
-             steps {
-                  bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" status'
-          }
-        }        
+    steps {
+        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" profile list'
+        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" status'
+    }
+}        
           stage('Install Dependencies') {
             steps {
                 bat '"%PYTHON%" -m pip install -r requirements.txt'
