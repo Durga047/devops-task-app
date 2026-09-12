@@ -51,7 +51,8 @@ pipeline {
         }
 stage('Deploy to Kubernetes') {
     steps {
-        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- apply -f k8s/deployment.yaml'
+        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" image load devops-task-app:%BUILD_NUMBER%'
+        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- set image deployment/devops-task-app devops-task-app=devops-task-app:%BUILD_NUMBER%'
         bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- apply -f k8s/service.yaml'
         bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- rollout status deployment/devops-task-app --timeout=120s'
     }
