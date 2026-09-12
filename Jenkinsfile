@@ -87,18 +87,17 @@ pipeline {
                 bat '''"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- exec deployment/devops-task-app -- python -c "import urllib.request; print(urllib.request.urlopen('http://127.0.0.1:5000/health').status)"'''
             }
         }
-
         stage('Resource Check') {
             steps {
-
-                bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- top pods'
+                bat '''
+                powershell -NoProfile -ExecutionPolicy Bypass -Command "$maxAttempts=6; $attempt=1; while ($attempt -le $maxAttempts) { Write-Host ('Checking Kubernetes metrics - Attempt ' + $attempt + '/' + $maxAttempts); & 'C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe' kubectl -- top pods; if ($LASTEXITCODE -eq 0) { exit 0 }; Start-Sleep -Seconds 10; $attempt++ }; Write-Host 'Metrics are still unavailable after waiting.'; exit 1"
+                '''
 
                 bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- top nodes'
 
                 bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- describe deployment devops-task-app'
             }
         }
-
     }
 
     post {
