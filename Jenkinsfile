@@ -80,6 +80,9 @@ pipeline {
 
                 // 9. Wait for successful rollout
                 bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- rollout status deployment/devops-task-app --timeout=120s'
+
+                // 10. Apply Prometheus alert rules
+                bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- apply -f monitoring\\prometheus\\app-alerts.yaml'
             }
         }
         stage('Verify Deployment') {
