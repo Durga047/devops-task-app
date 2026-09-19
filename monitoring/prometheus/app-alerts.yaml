@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: devops-task-app-alerts
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  groups:
+    - name: devops-task-app.rules
+      rules:
+        - alert: AppAvailableReplicasLow
+          expr: kube_deployment_status_replicas_available{namespace="default",deployment="devops-task-app"} < 3
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "DevOps Task App has fewer than 3 available replicas"
+            description: "The devops-task-app deployment has fewer than 3 available replicas for more than 5 minutes."
