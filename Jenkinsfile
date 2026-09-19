@@ -75,7 +75,10 @@ pipeline {
                 // 7. Apply Kubernetes Service
                 bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- apply -f k8s/service.yaml'
 
-                // 8. Wait for successful rollout
+                // 8. Apply Grafana dashboard ConfigMap
+                bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- apply -f monitoring\\grafana\\dashboard-configmap.yaml'
+
+                // 9. Wait for successful rollout
                 bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" kubectl -- rollout status deployment/devops-task-app --timeout=120s'
             }
         }
